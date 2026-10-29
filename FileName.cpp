@@ -114,8 +114,6 @@ void playGame()
 		default:
 			break;
 		}
-
-
 		int oldX = snake.body[0].X;
 		int oldY = snake.body[0].Y;
 		int oldTailX = snake.body[snake.size - 1].X;
@@ -150,8 +148,29 @@ void playGame()
 			gotoxy(oldTailX, oldTailY);printf(" ");
 		}
 		gotoxy(oldX, oldY); printf("o");
-		gotoxy(snake.body[0].X, snake.body[0].Y); printf("@");
-		gotoxy(food.N, food.M);printf("*");
+		if (score >= 20) {                                             //可改墙破所需要的分数
+			static int broken = 0;
+			if (!broken) {
+				broken = 1;
+				for (int i = 0; i < WIDE + 2;i++)
+				{
+					gotoxy(i, 0); printf(" ");
+					gotoxy(i, HIGH + 1); printf(" ");
+				}
+				for (int i = 0; i < HIGH ;i++)
+				{
+					gotoxy(0,i); printf(" ");
+					gotoxy(WIDE+1, i); printf(" ");
+				}
+				gotoxy(WIDE / 2 - 6, HIGH / 2);
+				printf("墙壁被破！！！\n");
+				Sleep(800);
+				gotoxy(WIDE / 2 - 6, HIGH / 2);
+				printf("               ");
+			}
+		}
+			gotoxy(snake.body[0].X, snake.body[0].Y); printf("@");
+			gotoxy(food.N, food.M);printf("*");
 
 		Sleep(150);
 
